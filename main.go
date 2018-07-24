@@ -2,8 +2,9 @@
 package main
 
 import (
-    "fmt"
     "net/http"
+
+    "github.com/ani.bz/handlers"
 )
 
 // Deal with preflight requests accordingly
@@ -21,18 +22,10 @@ func cors(h http.Handler) http.Handler {
     })
 }
 
-// For basic, non-shortening stuff
-type BasicHandler struct {}
-
-func (h BasicHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    if r.Method == "GET" {
-        http.Redirect(w, r, "https://aniruddh.co", 302)
-    } else {
-        fmt.Fprintf(w, "Cannot %s %s", r.Method, r.URL.Path)
-    }
-}
-
 func main() {
-    http.Handle("/", cors(BasicHandler{}))
+    http.Handle("/s/", cors(handlers.ShortenHandler{}))
+    http.Handle("/r/", cors(handlers.UnshortenHandler{}))
+    http.Handle("/", cors(handlers.RootHandler{}))
+
     http.ListenAndServe(":9003", nil)
 }
