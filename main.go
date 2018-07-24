@@ -4,7 +4,7 @@ package main
 import (
     "net/http"
 
-    "github.com/ani.bz/handlers"
+    "github.com/aniiyengar/ani.bz/handlers"
 )
 
 // Deal with preflight requests accordingly
