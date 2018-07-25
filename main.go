@@ -27,5 +27,7 @@ func main() {
     http.Handle("/r/", cors(handlers.UnshortenHandler{}))
     http.Handle("/", cors(handlers.RootHandler{}))
 
+    http.Handle("/static/", cors(http.StripPrefix("/static/", handlers.StaticHandler{})))
+
     http.ListenAndServe(":9003", nil)
 }

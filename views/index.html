@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ani.bz</title>
+
+    <link rel="stylesheet" type="text/css" href="static/main.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <h1>ani.bz</h1>
+      <p class="caption">A URL shortener.</p>
+
+      <form action="/s/" method="post">
+        <input class="linkInput" name="link" type="text" placeholder="Your link here..." autocomplete="off" />
+        <input class="linkSubmit" type="submit" value="Create >" />
+      </form>
+
+      <p>{{ .Message }}</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto';
+    overflow: none;
+}
+
+div.hero {
+    width: 500px;
+    height: 300px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-weight: normal;
+}
+
+.linkInput {
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+    font-family: 'Roboto';
+    font-weight: 300;
+    outline: none;
+
+    margin: 15px 0;
+    display: block;
+}
+
+.linkSubmit {
+    border: none;
+    outline: none;
+    font-size: 13px;
+}
+
+.linkSubmit:hover {
+    cursor: pointer;
+    color: blue;
+}
