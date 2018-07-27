@@ -6,14 +6,14 @@
     padding: 0;
 }
 
-body {
+body, html {
     font-family: 'Roboto';
-    overflow: none;
+    overflow: hidden;
 }
 
 div.hero {
-    width: 500px;
-    height: 300px;
+    width: 60vw;
+    height: 400px;
 
     position: absolute;
     top: 50%;
@@ -22,8 +22,18 @@ div.hero {
     transform: translate(-50%, -50%);
 }
 
+div#info {
+    margin-top: 30px;
+    display: none;
+    color: black;
+}
+
 h1 {
     font-weight: normal;
+}
+
+a {
+    text-decoration: none;
 }
 
 .linkInput {
@@ -32,6 +42,7 @@ h1 {
     font-size: 30px;
     font-family: 'Roboto';
     font-weight: 300;
+    width: 100%;
     outline: none;
 
     margin: 15px 0;
@@ -41,7 +52,8 @@ h1 {
 .linkSubmit {
     border: none;
     outline: none;
-    font-size: 13px;
+    font-size: 15px;
+    margin: 20px 0;
 }
 
 .linkSubmit:hover {
