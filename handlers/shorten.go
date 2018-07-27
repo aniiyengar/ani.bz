@@ -81,7 +81,7 @@ func (h ShortenHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         linkTo := body.Link
         recaptcha := body.Recaptcha
 
-        err := verifyRecaptcha(recaptcha)
+        err = verifyRecaptcha(recaptcha)
         if err != nil {
             w.WriteHeader(400)
             fmt.Fprintf(w, "Recaptcha response was invalid.")
