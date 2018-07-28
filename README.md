@@ -1,2 +1,3 @@
 # ani.bz
-URL shortener in Go :)
+
+`https://ani.bz`
