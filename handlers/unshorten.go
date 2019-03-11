@@ -6,6 +6,7 @@ package handlers
 import (
     "fmt"
     "net/http"
+    "strings"
 
     "github.com/aniiyengar/ani.bz/db"
 )
@@ -25,7 +26,7 @@ func (h UnshortenHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     if r.Method == "GET" {
         slug := r.URL.Path[1:]
 
-        if len(slug) == 0 {
+        if slug == "" || strings.ContainsRune(slug, '.') {
             http.FileServer(http.Dir("./client/")).ServeHTTP(w, r)
         } else {
             link, err := lookupURL(slug)
