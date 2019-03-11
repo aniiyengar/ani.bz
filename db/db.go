@@ -70,7 +70,7 @@ func WriteShortURL(s models.ShortURL) (string, error) {
         return "", err
     }
 
-    return "https://ani.bz/r/" + slug, nil
+    return "https://ani.bz/" + slug, nil
 }
 
 func QueryShortURL(slug string) (string, error) {
