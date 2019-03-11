@@ -3,15 +3,16 @@ package utils
 
 import (
     "strings"
+    "strconv"
     "errors"
     "math"
+    "os"
 )
 
 const base62chars = (
     "abcdefghijklmnopqrstuvwxyz" +
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
     "0123456789" )
-
 
 func IntToBase62(num uint64) (string, error) {
     result := ""
@@ -51,9 +52,25 @@ func Base62ToInt(str string) (uint64, error) {
 }
 
 func MagicHashForward(x uint64) uint64 {
-    return (x * 8734268573) % 56800000001
+    modEnv := os.Getenv("ANI_BZ_MOD_VARS")
+    envStrings := strings.Split(modEnv, " ")
+    modPInt, _ := strconv.ParseInt(envStrings[0], 10, 64)
+    modNInt, _ := strconv.ParseInt(envStrings[2], 10, 64)
+
+    modP := uint64(modPInt)
+    modN := uint64(modNInt)
+
+    return (x * modP) % modN
 }
 
 func MagicHashBackward(x uint64) uint64 {
-    return (x * 5356289447) % 56800000001
+    modEnv := os.Getenv("ANI_BZ_MOD_VARS")
+    envStrings := strings.Split(modEnv, " ")
+    modQInt, _ := strconv.ParseInt(envStrings[1], 10, 64)
+    modNInt, _ := strconv.ParseInt(envStrings[2], 10, 64)
+
+    modQ := uint64(modQInt)
+    modN := uint64(modNInt)
+
+    return (x * modQ) % modN
 }
