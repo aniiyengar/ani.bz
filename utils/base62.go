@@ -51,9 +51,9 @@ func Base62ToInt(str string) (uint64, error) {
 }
 
 func MagicHashForward(x uint64) uint64 {
-    return (x * 387420489) % 4000000000
+    return (x * 8734268573) % 56800000001
 }
 
 func MagicHashBackward(x uint64) uint64 {
-    return (x * 3513180409) % 4000000000
+    return (x * 5356289447) % 56800000001
 }
