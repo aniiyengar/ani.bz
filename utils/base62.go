@@ -13,7 +13,7 @@ const base62chars = (
     "0123456789" )
 
 
-func IntToBase62(num int) (string, error) {
+func IntToBase62(num uint64) (string, error) {
     result := ""
 
     if num < 0 {
@@ -33,19 +33,35 @@ func IntToBase62(num int) (string, error) {
     return result, nil
 }
 
-func Base62ToInt(str string) (int, error) {
-    result := 0
+func Base62ToInt(str string) (uint64, error) {
+    var result uint64 = 0
     strlen := len(str)
 
     for exp := 0; exp < strlen; exp++ {
         charPos := strlen - 1 - exp
         ix := strings.IndexRune(base62chars, []rune(str)[charPos])
         if ix <= -1 {
-            return -1, errors.New("base62ToInt: invalid input string")
+            return 0, errors.New("base62ToInt: invalid input string")
         }
 
-        result = result + (int(math.Pow(62, float64(exp))) * ix)
+        result = result + (uint64(math.Pow(62, float64(exp))) * uint64(ix))
     }
 
     return result, nil
+}
+
+func MagicHashForward(x uint64) uint64 {
+    x = (x ^ (x >> 30)) * 13787848793156543929
+    x = (x ^ (x >> 27)) * 10723151780598845931
+    x = x ^ (x << 31)
+
+    return x
+}
+
+func MagicHashBackward(x uint64) uint64 {
+    x = (x ^ (x >> 31) ^ (x >> 62)) * 3573116690164977347
+    x = (x ^ (x >> 27) ^ (x >> 54)) * 10871156337175269513
+    x = x ^ (x >> 30) ^ (x >> 60);
+
+    return x
 }

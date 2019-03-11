@@ -65,7 +65,7 @@ func WriteShortURL(s models.ShortURL) (string, error) {
         return "", err
     }
 
-    slug, err := utils.IntToBase62(newId)
+    slug, err := utils.IntToBase62(utils.MagicHashForward(uint64(newId)))
     if err != nil {
         return "", err
     }
@@ -83,7 +83,11 @@ func QueryShortURL(slug string) (string, error) {
             return err
         }
 
-        err = db.QueryRow(statement, id).Scan(&link)
+        err = db.QueryRow(
+            statement,
+            utils.MagicHashBackward(uint64(id)),
+        ).Scan(&link)
+
         if err != nil {
             return err
         }
