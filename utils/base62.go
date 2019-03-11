@@ -6,6 +6,7 @@ import (
     "strconv"
     "errors"
     "math"
+    "fmt"
     "os"
 )
 
@@ -53,9 +54,11 @@ func Base62ToInt(str string) (uint64, error) {
 
 func MagicHashForward(x uint64) uint64 {
     modEnv := os.Getenv("ANI_BZ_MOD_VARS")
-    envStrings := strings.Split(modEnv, " ")
+    envStrings := strings.Split(modEnv, ",")
     modPInt, _ := strconv.ParseInt(envStrings[0], 10, 64)
     modNInt, _ := strconv.ParseInt(envStrings[2], 10, 64)
+
+    fmt.Printf("%d\n", modNInt)
 
     modP := uint64(modPInt)
     modN := uint64(modNInt)
@@ -65,7 +68,7 @@ func MagicHashForward(x uint64) uint64 {
 
 func MagicHashBackward(x uint64) uint64 {
     modEnv := os.Getenv("ANI_BZ_MOD_VARS")
-    envStrings := strings.Split(modEnv, " ")
+    envStrings := strings.Split(modEnv, ",")
     modQInt, _ := strconv.ParseInt(envStrings[1], 10, 64)
     modNInt, _ := strconv.ParseInt(envStrings[2], 10, 64)
 
