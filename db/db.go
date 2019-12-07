@@ -13,10 +13,10 @@ import (
 )
 
 var (
-    host = os.Getenv("ANI_BZ_DB_HOST")
-    user = os.Getenv("ANI_BZ_DB_USER")
-    password = os.Getenv("ANI_BZ_DB_PASSWORD")
-    database = os.Getenv("ANI_BZ_DB_NAME")
+    host = os.Getenv("POSTGRES_HOST")
+    user = os.Getenv("POSTGRES_USER")
+    password = os.Getenv("POSTGRES_PASSWORD")
+    database = os.Getenv("POSTGRES_DB")
 
     port = 5432
 )
@@ -40,11 +40,22 @@ func connect(fn func(d *sql.DB) error) error {
     defer db.Close()
 
     err = fn(db)
+
     if err != nil {
         return err
     }
 
     return nil
+}
+
+func Init() error {
+    create_url := "CREATE TABLE IF NOT EXISTS urls (link VARCHAR, id SERIAL);"
+    fn := func(db *sql.DB) error {
+        _, err := db.Query(create_url)
+        return err
+    }
+
+    return connect(fn)
 }
 
 func WriteShortURL(s models.ShortURL) (string, error) {

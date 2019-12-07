@@ -3,7 +3,11 @@ package main
 
 import (
     "net/http"
+    "fmt"
+    "time"
+    "math"
 
+    "github.com/aniiyengar/ani.bz/db"
     "github.com/aniiyengar/ani.bz/handlers"
 )
 
@@ -23,8 +27,19 @@ func cors(h http.Handler) http.Handler {
 }
 
 func main() {
+    retries := 0
+    var err error
+
     http.Handle("/", cors(handlers.UnshortenHandler{}))
     http.Handle("/s/", cors(handlers.ShortenHandler{}))
 
-    http.ListenAndServe(":9003", nil)
+    for retries < 10 {
+        if err = db.Init(); err != nil {
+            fmt.Println(err);
+            retries += 1
+            time.Sleep(time.Duration(math.Pow(1.5, float64(retries))) * time.Second)
+        } else {
+            http.ListenAndServe(":9003", nil)
+        }
+    }
 }

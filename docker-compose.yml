@@ -1,0 +1,19 @@
+
+version: '3'
+services:
+  pq:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tmp/data:/var/lib/postgresql/data
+    env_file:
+      - .env
+  go:
+    build: .
+    ports:
+      - "9003:9003"
+    env_file:
+      - .env
+    depends_on:
+      - pq
